@@ -163,7 +163,7 @@ console.log("Teste transFilter(['Tarte', 'Porte', 'Titine]), 'te' : ")
      * 
      */
 
-function tabstat(array){
+function arraystat(array){
 
 	let objet = {
 			nomber : array.length,
@@ -176,7 +176,7 @@ function tabstat(array){
 
 console.log("Teste somme, la moyenne, et qui retourne objet ");
 let array = [0,1,2];
-console.log(tabstat(tab));
+console.log(arraystat(tab));
 
     /**
      * 2. créer sous forme littérale un objet représentant un étudiant.
@@ -185,87 +185,167 @@ console.log(tabstat(tab));
      * La valeur de la propriété notes est un tableau vide.
     */
    let etudiant = {
-                numero: 7,
-                nom: "Rahmouni",
-                prenom: "Karim",
-                dateNaiss: new Date(2011, 07, 05),
-                mail: "karim.rahmouni@live.fr",
-                notes: []
-                };
-                
-                
-    /**
-   * 3. ajouter une méthode qui calcule l'age de l'étudiant.
-   *  Ajouter une méthode qui affiche les nom, prénom et date de naissance de l'étudiant.
-   *  Le nom est en majuscule, la date est sous la forme dd/mm/YYYY.
-   */
+            numero: 7,
+            nom: "Rahmouni",
+            prenom: "Karim",
+            dateNaiss: new Date(2011, 07, 05),
+            mail: "karim.rahmouni@live.fr",
+            notes: [],
+        
+            /**
+             * 3. ajouter une méthode qui calcule l'age de l'étudiant.
+             *  Ajouter une méthode qui affiche les nom, prénom et date de naissance de l'étudiant.
+             *  Le nom est en majuscule, la date est sous la forme dd/mm/YYYY.
+             */
 
-  function calculAge(strDate) {
-    strDate = strDate.split('/');
-    var birthMonth = strDate[1]-1, // (les mois commencent à 0)
-        birthDay = strDate[0],
-        now = new Date(),
-        nowMonth = now.getMonth(),
-        nowDay = now.getDate(),
-        age = now.getFullYear()-strDate[2];
+        calculAge(strDate) {
+            strDate = strDate.split('/');
+            var birthMonth = strDate[1]-1, // (les mois commencent à 0)
+                birthDay = strDate[0],
+                now = new Date(),
+                nowMonth = now.getMonth(),
+                nowDay = now.getDate(),
+                age = now.getFullYear()-strDate[2];
+            
+            // Si la date d'anniversaire n'est pas encore passée, on corrige l'age
+            if(nowMonth<birthMonth || nowMonth==birthMonth && nowDay<birthDay) {
+                age--;
+            }
+            return age;
+        },
+            /**
+            * 4. ajouter une méthode qui ajoute une note dans une matière à l'étudiant.
+            * la méthode reçoit 2 paramètres m (matière) et n (note),
+            *  en fait un objet contenant 2 propriétés,
+            *  et ajoute cet objet dans le tableau de notes de l'étudiant ;
+            *  on suppose que l'on a toujours 1 seule note par matière.
+            * 
+            */
+        ajouteNote(m, n) {
+                this.notes.push({matiere : m, note : n});
+           
+        },
+
+            /**
+             * 5. ajouter une méthode qui calcule la moyenne de l'étudiant (toutes les matières ont le coeff. 1),
+             */
+        
+        avg(){
+            let somme=0;
+            this.notes.forEach( (n) => somme += n.note);
+            return somme/this.note.length;
+        },
+   };
      
-    // Si la date d'anniversaire n'est pas encore passée, on corrige l'age
-    if(nowMonth<birthMonth || nowMonth==birthMonth && nowDay<birthDay) {
-        age--;
-    }
-    return age;
-}
-    /**
-    * 4. ajouter une méthode qui ajoute une note dans une matière à l'étudiant.
-    * la méthode reçoit 2 paramètres m (matière) et n (note),
-    *  en fait un objet contenant 2 propriétés,
-    *  et ajoute cet objet dans le tableau de notes de l'étudiant ;
-    *  on suppose que l'on a toujours 1 seule note par matière.
-    * 
-    */
-   
-    /**
-     * 5. ajouter une méthode qui calcule la moyenne de l'étudiant (toutes les matières ont le coeff. 1),
-     */
- 
-    etudiant.avg(){
-        let somme=0;
-        this.notes.forEach(n=>somme+=n.notes);
-        return somme/this.notes.length;
-    };
+    //Teste objet etudiant
+    console.log("Teste etudiant");
+    console.log(
+            "etudiant :",
+            "numero :" + etudiant.numero + "\n",
+            "nom :" + nom + "\n",
+            "prenom :"  + etudiant.prenom + "\n",
+            "dateNaiss :" +etudiant.dateNaiss + "\n",
+            "mail :" + etudiant.mail + "\n",
+            "notes :" +etudiant.notes + "\n",
+        ),
+
+    //Teste ajouter une note
+    console.log(ajouteNote);
+    etudiant.ajouteNote("javaScript", 15);
+    // Teste age
+    console.log("l'age : " + etudiant.age());
+    console.log("la note javaScript : " +etudiant.notes[0].note);
+    //Teste avg
+    console.log("la moyenne de l'etudiant : "+etudiant.avg());
     
+    console.log('etudiant');
+
+
 
     /**
       * 6. créer un constructeur d'étudiants :
       *  il doit produire des objets ayant la même structure que celui ci-dessus.
       *  Les méthodes ci-dessus doivent être définies dans le prototype.
+      * split permet de recuperer les element de chaine de caractaire 
       */
 
-     function etudiants(nom,prenom,dateNaiss,mail){
-        function etudiants(numero,nom,prenom,dateNaiss,mail){
-            this.numero=numero;
-            this.nom=nom;
-            this.prenom=prenom;
-            this.dateNaiss=dateNaiss;
-            this.mail=mail;
-            this.notes=[];
+     function Etudiant(numero, nom, prenom, dateNaiss, mail){
+        
+        this.numero = numero;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaiss = dateNaiss;
+        this.mail = mail;
+        this.notes = [];
         }
+ 
+Etudiant.prototype.calculAge = function()  {
+            strDate = strDate.split('/');
+            var birthMonth = strDate[1]-1, // (les mois commencent à 0)
+                birthDay = strDate[0],
+                now = new Date(),
+                nowMonth = now.getMonth(),
+                nowDay = now.getDate(),
+                age = now.getFullYear()-strDate[2];
+            
+            // Si la date d'anniversaire n'est pas encore passée, on corrige l'age
+            if(nowMonth<birthMonth || nowMonth==birthMonth && nowDay<birthDay) {
+                age--;
+            }
+            return age;
         }
+            
+Etudiant.prototype.ajouteNote(m, n)=function() {
+                this.notes.push({matiere : m, note : n});
+           
+        }
+
+Etudiant.prototype.avg = function(){
+            let somme=0;
+            this.notes.forEach( (n) => somme += n.note);
+            return somme/this.note.length;
+        },
+   
     /**
      * 7. créer une fonction qui reçoit un tableau d'étudiants 
      * et un n° de mois et retourne un tableau contenant la liste des étudiants dont l'anniversaire a lieu durant le mois indiqué.
      */
+        function anniversaire(etu, monthNumber){
+            let array = [];
+            etu.forEach(etu =>{
+                if(etu.dateNaiss.getMonth() +1 === monthNumber)array.push(etu);
+            })
+            return array;
 
+        }
+        // Teste 
+        console.log('Teste anniversaire')
+        let etu = new Etudiant(1, "Lucas", "Toma", "10/12/1999", "lucas.toma@mail.fr");
 
     /**
      * 8. Créer une fonction qui retourne la liste des étudiants ayant plus d'un age donné.
      */
-
+    function listeAge(l,n){
+        let array=[];
+        for (let element=0;element<=t.length;element++){
+            if (l[element].age>n){
+                array.push(l[element]);
+            }
+        }
+        
+        return array;
 
     /**
      * 9. Créer un constructeur d'objets correspondant à un groupe d'étudiants.
      * Un groupe d'étudiants contient les propriétés nomgpe, formation, liste, annee.
      */
+        
+
+    function groupeEtu(nom, formation,array,annee){
+        this.nomgpe= nom;
+        this.formation= formation;
+        this.liste=array;
+        this.annee=annee;   
 
 
 
@@ -274,4 +354,33 @@ console.log(tabstat(tab));
      * groupe, calculer la moyenne générale de chaque étudiant du groupe.
      */
 
-     
+     /**
+ * Ajoute un étudiant au groupe
+ * @param {Etudiant} etudiant etudiant à ajouter
+ */
+GroupeEtu.prototype.add = function (etudiant) {
+	this.liste.push(etudiant);
+}
+
+/**
+ * Retourne le nombre d'étudiant du groupe
+ * @returns {number} nombre d'étudiants du groupe
+ */
+GroupeEtu.prototype.count = function () {
+	return this.liste.length;
+};
+
+/**
+ * Retourne la moyenne générale de chaque étudiant du groupe
+ * @returns {array} tableau d'objets contenant le nom et la moyenne générale de chaque étudiant
+ */
+GroupeEtu.prototype.avgs = function(){
+	let liste = [];
+	this.liste.forEach((e) => {
+		liste.push({
+			nom : e.nom + ' ' + e.prenom,
+			moyenne : e.avg()
+		})
+	})
+	return liste;
+}
