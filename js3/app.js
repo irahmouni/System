@@ -1,35 +1,3 @@
-/**
- * exo 2 Q.1
- * 
- * écrire la fonction range(a,b)
- * qui reçoit 2 paramètres entiers
- * et retourne un tableau contenant tous les entiers
- * de a à b (si a <=B)
- * ou de b à a (si a > b),
- * 
- * @param {*} a 
- * @param {*} b 
- */
-function range (a,b){
-    let array =[];
-
-    
-    while (a<=b){
-        array.push(a)
-        a++;
-    }
-    while (b<=a){
-        array.push(b)
-        b++;
-    }
-    return array;
-}
-console.log(" Teste exo 2 Q1     rendre de le tableau 1 0 au 6 : ");
-let arrayOne = range(0, 6);
-console.log(arrayOne);
-console.log(" Teste exo 2 Q1 rendre le tableau de  6 au 12 : ");
-let arrayTow = range(12, 6);
-console.log(arrayTow);
 
 /**
  * 2.écrire une fonction sum() 
@@ -53,9 +21,9 @@ function sum(array){
 }
 
 //Teste de la boucle for
-console.log("La somme des elements du tableau avec for est : 24 ");
-let S = [1, 4, 5, 10, 4];
-console.log(sum(S));
+console.log("La somme des elements du tableau avec la boucle for est : 24 ");
+let F = [1, 4, 5, 10, 4];
+console.log(sum(F));
 
 
 
@@ -63,13 +31,13 @@ console.log(sum(S));
 
 function sum(array){
 	let somme = 0;
-	array.forEach( (element) => { somme+=element;})
+	array.forEach((element) => { somme+=element;})
 	return somme;
 }
 
-console.log("Teste la somme des elements du tableau avec forEach est : 14 ");
-let T = [3, 9, -4, 1, 5];
-console.log(sum(T));
+console.log("Teste la somme des elements du tableau avec forEach est : 9 ");
+let FE = [3, 1, 5];
+console.log(sum(FE));
 
 //Teste de la boucle reduce()
 console.log("Teste la somme des elements du tableau avec reducer est : 10 ");
@@ -91,30 +59,36 @@ function avgOne(array){
     let somme = 0;
     for(let element=0; element<array.length; element++){
         somme +=  array[element];
-        }
-    }   
+    }
+    return somme/array.length;
+}   
     /**
      * Tester la moyenne boucle for rendre 33
      */
 console.log("avgOne [22, 44] for : " + avgOne [22, 44]);
 
 function avgTow (array){
-		array.forEach( (element) => { somme+=element;})
-	}
+    let somme = 0;
+	array.forEach((element) =>  somme+=element);
+   
+    return somme/array.length;
+}
     /**
-     * Tester la moyenne boucle forEach rendre 10
+     * Tester la moyenne boucle forEach rendre 30
      */
-console.log("avgTow [20, 10] forEach : " + avgTow [20, 10]);
+console.log("avgTow [20, 40] forEach : " + avgTow [20, 40]);
 
 function avgThree (array){
-let reducer = (accumulator, element) => accumulator + element;
-		somme = array.reduce(reducer, 0)
+    let somme = 0;
+    let reducer = (accumulator, element) => accumulator + element;
+    somme = array.reduce(reducer, 0)
+    return somme/array.length;
     }
     /**
-     * Tester la moyenne boucle reduce rendre 60
+     * Tester la moyenne boucle reduce rendre 30
      */
 console.log("avgThree [50, 10] reduce : " + avgThree [50, 10]);
-	return somme/array.length;
+
 
 
 /**
@@ -126,18 +100,19 @@ console.log("avgThree [50, 10] reduce : " + avgThree [50, 10]);
  **/
 
 
-function  patterntoUpper(t, String){
+function  patterntoUpper(t, pattern){
 	let array = [];
 	 t.forEach( (element) => {
-				if(element.includes(String))
+				if(element.includes(pattern))
 					array.push(element.toUpperCase());
 				});
 	return array;
 }
 
-console.log("Teste Paterne 1.4")
+console.log("Teste Patern ()")
 let arrayOne = ['Tarte', 'Porte', 'Titine'];
-console.log("Teste patterntoUpper(['Tarte', 'Porte', 'Titine]), 'te' : ") +(patterntoUpper(arrayOne, 'te'));
+console.log("Teste patterntoUpper(['Tarte', 'Porte', 'Titine]), 'te' : ")
+             +(patterntoUpper(arrayOne, 'te'));
 
 
 /**
@@ -149,21 +124,20 @@ console.log("Teste patterntoUpper(['Tarte', 'Porte', 'Titine]), 'te' : ") +(patt
  * Utiliser cette fonction généralisée pour ré-écrire le fonction précédente.
 **/
 
-function  transformation(t, testFnct, transFnct){
+function  trans(t, testFnct, transFnct){
 	let array = [];
 	t.forEach( (element) => {
 					if(testFnct(element)){
-                    array.push(transFnct(element));
+                        array.push(transFnct(element));
                     }
-    });
+    })
 	return array;
 }
 
-
-console.log("Teste Patern() 1.5")
-let arrayOne = ['Tarte', 'Porte', 'Titine'];
-
-console.log("Teste patterntoUpper(['Tarte', 'Porte', 'Titine]), 'te' : ") +(patterntoUpper(arrayOne),
+//Teste 1.6
+console.log("Teste Patern()");
+console.log("Teste patterntoUpper(['Tarte', 'Porte', 'Titine]), 'te' : ")
+         +(patterntoUpper(arrayOne),
 
 (element)	=> element.includes('te'),
 (element)	=> element.toUpperCase('te', 'TE'));
@@ -172,29 +146,13 @@ console.log("Teste patterntoUpper(['Tarte', 'Porte', 'Titine]), 'te' : ") +(patt
  * 6. ré-écrire la fonction (4) précédente en utilisant filter() et map(),
  */
 
-function  transformFilter(t, testFnct, transFnct){
-	let array = t.filter(testFnct);
-	return array.map(transFnct);
-}
-console.log("Teste Patern() 1.6 ");
-console.log("Teste transformFilter(['Tarte', 'Porte', 'Titine]), 'te' : ") +(patterntoUpper(array, 'te'),
-
-/**
- * 
- * 7. on considère un tableau contenant des références de produits dans un catalogue en ligne.
- * Ecrire une fonction qui reçoit ce tableau en paramètre
- * et retourne un tableau contenant les urls vers ces produits
- */
-//1.7
-function redirect(t){
-	let link = "http://www.cata.log/products/";
-	let tablink = [];
-	t.forEach( (e) => {tablink.push(link + e);})
-	return tablink;
-}
-let t7 = ["farine", "pain"];
-console.log("1.7 test redirect()");
-console.log(redirect(t7));
+function  transFilter(t, testFnct, transFnct){
+     return t.filter(t=>t.includes(testFnct)).map(t=>transFnct.toUpperCase());
+ }
+	
+console.log("Teste Patern() ");
+console.log("Teste transFilter(['Tarte', 'Porte', 'Titine]), 'te' : ")
+             + (toUpperCase(array, 'te'));
 
 //Exercice 2 : objets
 
@@ -204,17 +162,20 @@ console.log(redirect(t7));
      * la somme des éléments et la moyenne des éléments,
      * 
      */
-    //2.1
-function tabstat(tab){
 
-	return stat = {
-			taille : tab.length,
-			somme : sum(tab),
-			avg : avg(tab)
-			};
+function tabstat(array){
+
+	let objet = {
+			nomber : array.length,
+			somme : sum(array),
+			avg : avg(array)
+            }
+        return objet;
 }
-tab = [0,1,2];
-console.log("2.1 test tabstat()");
+//Teste function avg
+
+console.log("Teste somme, la moyenne, et qui retourne objet ");
+let array = [0,1,2];
 console.log(tabstat(tab));
 
     /**
@@ -223,20 +184,15 @@ console.log(tabstat(tab));
      * La valeur de la propriété dateNaiss est construite avec le constructeur de dates.
      * La valeur de la propriété notes est un tableau vide.
     */
-   let étudiant = {
-                numero:"7" ,
-                nom:"Anis" ,
-                prenom: "Ramoun",
-                dateNaiss: (2011,07,05),
-                mail: jesuisunmail,
-                notes:20,
+   let etudiant = {
+                numero: 7,
+                nom: "Rahmouni",
+                prenom: "Karim",
+                dateNaiss: new Date(2011, 07, 05),
+                mail: "karim.rahmouni@live.fr",
+                notes: []
                 };
-console.log("2.2 test tabstat()");
-
-if (auj.getMonth()===this.dateNaiss.getMonth())
-    {if (auj.getDay>this.dateNaiss.getDay()) age-=1;}
-    else if(auj.getMonth()===this.dateNaiss.getMonth()){age-=1;}
-return age;
+                
                 
     /**
    * 3. ajouter une méthode qui calcule l'age de l'étudiant.
@@ -244,9 +200,21 @@ return age;
    *  Le nom est en majuscule, la date est sous la forme dd/mm/YYYY.
    */
 
-                
-                
-    
+  function calculAge(strDate) {
+    strDate = strDate.split('/');
+    var birthMonth = strDate[1]-1, // (les mois commencent à 0)
+        birthDay = strDate[0],
+        now = new Date(),
+        nowMonth = now.getMonth(),
+        nowDay = now.getDate(),
+        age = now.getFullYear()-strDate[2];
+     
+    // Si la date d'anniversaire n'est pas encore passée, on corrige l'age
+    if(nowMonth<birthMonth || nowMonth==birthMonth && nowDay<birthDay) {
+        age--;
+    }
+    return age;
+}
     /**
     * 4. ajouter une méthode qui ajoute une note dans une matière à l'étudiant.
     * la méthode reçoit 2 paramètres m (matière) et n (note),
@@ -260,6 +228,12 @@ return age;
      * 5. ajouter une méthode qui calcule la moyenne de l'étudiant (toutes les matières ont le coeff. 1),
      */
  
+    etudiant.avg(){
+        let somme=0;
+        this.notes.forEach(n=>somme+=n.notes);
+        return somme/this.notes.length;
+    };
+    
 
     /**
       * 6. créer un constructeur d'étudiants :
@@ -295,6 +269,9 @@ return age;
 
 
 
-    /***
-     * 11. Souhaitez un bon anniversaire à tous les étudiants du group
+    /**
+     * 10. Prévoir les méthodes pour : ajouter un étudiant au groupe, compter les étudiants d'un
+     * groupe, calculer la moyenne générale de chaque étudiant du groupe.
      */
+
+     
